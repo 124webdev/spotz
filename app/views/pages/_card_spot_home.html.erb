@@ -10,8 +10,9 @@
           text-description rounded-full bg-neutral-400 px-4 py-1 font-semibold text-white
           shadow-lg
         "
-      ><%= spot.category %></p>
-
+      >
+        <%= spot.category %>
+      </p>
       <div>
         <%= link_to spot_bookmarks_path(spot), data: { turbo_method: :post } do %>
           <svg
