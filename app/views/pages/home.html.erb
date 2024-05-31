@@ -4,8 +4,9 @@
 </div>
 <div class="my-7 text-2xl font-bold">The Ultimate Guide to Local Exploration</div>
 <%= render "searchbar" %>
-<div class="text-2xl font-bold">Popular spotz in
-  <span class="text-teal-400">your area</span>
+<div class="text-2xl font-bold">
+    Popular <a href="spots" class="text-teal-400">spotz</a> in your area
+</div>
 </div>
 
 <%= render "spot_carousel", spots: @spots %>
@@ -17,7 +18,7 @@
 <%= render "shared/event_carousel" %>
 
 <div class="mt-8 text-2xl font-bold">Curated
-  <span class="text-teal-400">Experiences</span>
+  <a href="experiences" class="text-teal-400">experiences</a>
 </div>
 <div class="divide-y-2 divide-gray-100">
   <% 3.times do %>
@@ -25,4 +26,3 @@
   <% end %>
 </div>
 <%= render "shared/button_secondary", text: "View all experiences" %>
-
