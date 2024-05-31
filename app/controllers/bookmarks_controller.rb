@@ -6,12 +6,10 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @bookmark = current_user.bookmarks.new(bookmark_params)
-    if @bookmark.save
-      redirect_to bookmarks_path
-    else
-      render :new, status: :unprocessable_entity
-    end
+    @spot = Spot.find(params[:spot_id])
+    Bookmark.create(user: current_user, spot: @spot)
+    redirect_to bookmarks_path
+
   end
 
   def destroy
@@ -19,6 +17,7 @@ class BookmarksController < ApplicationController
     @bookmark.destroy
     redirect_to bookmarks_path
   end
+
 
   private
 
