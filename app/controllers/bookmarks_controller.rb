@@ -6,10 +6,12 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @spot = Spot.find(params[:spot_id])
-    Bookmark.create(user: current_user, spot: @spot)
-    redirect_to bookmarks_path
-
+    @bookmark = Bookmark.new
+    @spot = Spot.find(params[:spot_id]) if params[:spot_id]
+    @spot = Spot.find(params[:id]) if params[:id]
+    @bookmark.user = current_user
+    @bookmark.spot = @spot
+    redirect_back(fallback_location: root_path) if @bookmark.save
   end
 
   def destroy
@@ -17,7 +19,6 @@ class BookmarksController < ApplicationController
     @bookmark.destroy
     redirect_to bookmarks_path
   end
-
 
   private
 

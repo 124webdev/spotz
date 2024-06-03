@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def bookmark_saved?(spot)
-    current_user.bookmarks.exists?(spot_id: spot.id)
+    current_user&.bookmarks&.exists?(spot_id: spot.id)
   end
 
 end
