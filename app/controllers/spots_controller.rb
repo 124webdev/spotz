@@ -4,11 +4,11 @@ class SpotsController < ApplicationController
 
   def index
     @spots = Spot.all
-    if params[:query].present?
-      subquery = "name @@ :query OR subtitle @@ :query OR category @@ :query OR description @@ :query OR address @@ :query"
-      # if you wanna search through associations, you need to JOIN, see search lecture .4
-      @spots = @spots.where(subquery, query: "%#{params[:query]}%")
-    end
+    return unless params[:query].present?
+
+    subquery = "name @@ :query OR subtitle @@ :query OR category @@ :query OR description @@ :query OR address @@ :query"
+    # if you wanna search through associations, you need to JOIN, see search lecture .4
+    @spots = @spots.where(subquery, query: "%#{params[:query]}%")
   end
 
   def show
@@ -18,22 +18,16 @@ class SpotsController < ApplicationController
         longitude: @spot.longitude,
         marker_html: render_to_string(partial: "marker")
       }]
+    @bookmark = Bookmark.where(user: current_user, spot: @spot).first
+    @events = Event.all
+    @experiences = Experience.all
   end
 
   def options
     @visit = Visit.where(user: current_user, spot: params[:spot_id]).first
-  end
-
-  def create_visit
-    @visit = Visit.new
-    @spot = Spot.find(params[:spot_id])
-    @visit.user = current_user
-    @visit.spot = @spot
-
-    redirect_to @spot, notice: "spot was added to visited" if @visit.save
-  end
-
-  def destroy_visit
+    @bookmark = Bookmark.where(user: current_user, spot: params[:spot_id]).first
+    @review = Review.where(user: current_user, reviewable: params[:spot_id]).first if params[:spot_id]
+    @review = Review.where(user: current_user, reviewable: params[:experience_id]).first if params[:experience_id]
   end
 
   private

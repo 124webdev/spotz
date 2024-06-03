@@ -30,7 +30,10 @@
       </p>
     </div>
 
-    <%= cl_image_tag(spot.photos.first.key, class:"w-bigcardwidth h-bigcardheight aspect-square rounded-xl")  %>
+    <%= cl_image_tag(
+      spot.photos.first.key,
+      class: "w-bigcardwidth h-bigcardheight aspect-square rounded-xl",
+    ) %>
   </div>
   <div class="mt-4">
     <div class="flex items-center justify-between ">
